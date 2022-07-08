@@ -36,7 +36,7 @@
               formControlName="password"
               [class.is-valid]="getFormControl('password').valid"
               [class.is-invalid]="isFormControlInvalid('password')"
-              type="password"
+              type="text"
             >
             <div class="alert-danger"
                  *ngIf="isFormControlInvalid('password')"
@@ -56,5 +56,8 @@
           Se connecter
         </button>
     </form>
+    <div class="alert-danger" *ngIf="error.length > 0">
+      {{ error }}
+    </div>
   </div>
 </div>
