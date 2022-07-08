@@ -1,0 +1,60 @@
+
+<div class="container">
+  <div class="d-flex justify-content-center mt-5">
+    <form [formGroup]="formLogin">
+        <div class="row">
+          <div class="col-3">
+            <label class="form-label">E-mail</label>
+          </div>
+          <div class="col-9">
+            <input
+                class="form-control"
+                formControlName="email"
+                [class.is-valid]="getFormControl('email').valid"
+                [class.is-invalid]="isFormControlInvalid('email')"
+              >
+            <div class="alert-danger"
+                 *ngIf="isFormControlInvalid('email')"
+            >
+              <div *ngIf="getFormControl('email').errors?.email">
+                Veuillez saisir un e-mail valide
+              </div>
+              <div *ngIf="getFormControl('email').errors?.required">
+                Veuillez saisir un e-mail
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-2">
+          <div class="col-3">
+            <label class="form-label">Password</label>
+          </div>
+          <div class="col-9">
+            <input
+              class="form-control col-9"
+              formControlName="password"
+              [class.is-valid]="getFormControl('password').valid"
+              [class.is-invalid]="isFormControlInvalid('password')"
+              type="password"
+            >
+            <div class="alert-danger"
+                 *ngIf="isFormControlInvalid('password')"
+            >
+              <div *ngIf="getFormControl('password').errors?.required">
+                Veuillez saisir un password
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary mt-2 d-flex mx-auto"
+                type="submit"
+                (click)="onSubmit()"
+                [disabled]="formLogin.invalid"
+        >
+          Se connecter
+        </button>
+    </form>
+  </div>
+</div>
