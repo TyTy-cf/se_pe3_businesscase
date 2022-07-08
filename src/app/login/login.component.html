@@ -16,10 +16,10 @@
             <div class="alert-danger"
                  *ngIf="isFormControlInvalid('email')"
             >
-              <div *ngIf="getFormControl('email').errors?.email">
+              <div *ngIf="getFormControl('email').errors?.['email']">
                 Veuillez saisir un e-mail valide
               </div>
-              <div *ngIf="getFormControl('email').errors?.required">
+              <div *ngIf="getFormControl('email').errors?.['required']">
                 Veuillez saisir un e-mail
               </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="alert-danger"
                  *ngIf="isFormControlInvalid('password')"
             >
-              <div *ngIf="getFormControl('password').errors?.required">
+              <div *ngIf="getFormControl('password').errors?.['required']">
                 Veuillez saisir un password
               </div>
             </div>
