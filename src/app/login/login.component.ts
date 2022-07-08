@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {HttpClientService} from "../../services/http-client.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
+import {UrlApi} from "../../services/url-api";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,8 +14,8 @@ export class LoginComponent {
 
   // private _email: string = 'tortuga4281@yahoo.fr';
   // private _password: string = 'coucou';
-  private _email: string = '';
-  private _password: string = '';
+  private _email: string = 'tortuga4281@yahoo.fr';
+  private _password: string = 'coucou';
   error: string = '';
 
   formLogin: FormGroup = new FormGroup({
@@ -30,6 +32,11 @@ export class LoginComponent {
     )
   });
 
+  constructor(
+    private httpClientService: HttpClientService,
+    private router: Router
+  ) { }
+
   getFormControl(key: string): AbstractControl {
     return this.formLogin.controls[key];
   }
@@ -38,10 +45,6 @@ export class LoginComponent {
     const field: AbstractControl = this.getFormControl(key);
     return field.invalid && (field.touched || field.dirty);
   }
-
-  constructor(
-    private httpClientService: HttpClientService
-  ) { }
 
   onSubmit(): void {
     if (this.formLogin.valid) {
@@ -52,7 +55,8 @@ export class LoginComponent {
 
       this.httpClientService.loginCheck(jsonPostUser).subscribe(
         (response) => {
-          console.log(response);
+          localStorage.setItem(UrlApi.keyTokenJWT, response.token);
+          this.router.navigate(['/dashboard']).then();
         },
         (error) => {
           if (error instanceof HttpErrorResponse) {
