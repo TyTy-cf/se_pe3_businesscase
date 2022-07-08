@@ -41,7 +41,9 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.formLogin.valid) {
-      // vRAIMENT LANCER LA REQUETE HTTP A L'API
+      this.httpClientService.loginCheck({email: this._email, password: this._password}).subscribe((response) => {
+        console.log(response);
+      });
     }
     // Parking avec l'utilisateur
   }
