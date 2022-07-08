@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpClientService} from "../../services/http-client.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -49,9 +50,18 @@ export class LoginComponent {
         password: this.getFormControl('password').value
       };
 
-      this.httpClientService.loginCheck(jsonPostUser).subscribe((response) => {
-          console.log(response)
-      });
+      this.httpClientService.loginCheck(jsonPostUser).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          if (error instanceof HttpErrorResponse) {
+            if (error.status === 401) {
+              this.error = 'Identifiants invalides';
+            }
+          }
+        }
+      );
     }
     // Parking avec l'utilisateur
   }
