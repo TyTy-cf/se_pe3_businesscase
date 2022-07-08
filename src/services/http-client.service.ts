@@ -15,4 +15,8 @@ export class HttpClientService {
     return this.httpClient.get('oui');
   }
 
+  postRequest(): Observable<any> {
+    return this.httpClient.get('oui');
+  }
+
 }
