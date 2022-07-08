@@ -55,8 +55,10 @@ export class LoginComponent {
 
       this.httpClientService.loginCheck(jsonPostUser).subscribe(
         (response) => {
-          localStorage.setItem(UrlApi.keyTokenJWT, response.token);
-          this.router.navigate(['/dashboard']).then();
+          if (response.token) {
+            localStorage.setItem(UrlApi.keyTokenJWT, response.token);
+            this.router.navigate(['/dashboard']).then();
+          }
         },
         (error) => {
           if (error instanceof HttpErrorResponse) {

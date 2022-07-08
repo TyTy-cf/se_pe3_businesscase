@@ -8,10 +8,12 @@ import {UrlApi} from "../../services/url-api";
 })
 export class DashboardComponent implements OnInit {
 
+  token: string|null = localStorage.getItem(UrlApi.keyTokenJWT);
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem(UrlApi.keyTokenJWT));
+    console.log(this.token);
   }
 
 }
