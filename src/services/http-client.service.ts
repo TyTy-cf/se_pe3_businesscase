@@ -23,11 +23,33 @@ export class HttpClientService {
         // 'Access-Control-Allow-Origin': '*'
       };
     }
+
     let params = new HttpParams();
     params = params.append('min_date', dateMin);
     params = params.append('max_date', dateMax);
 
     return this.httpClient.get<T>(url, {
+      headers: headers,
+      params: params,
+    });
+  }
+
+  getRequestAny(url: string, dateMin: string, dateMax: string): Observable<any> {
+    const token: string|null = localStorage.getItem(UrlApi.keyTokenJWT);
+    let headers = undefined;
+    if (token) {
+      headers = {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        // 'Access-Control-Allow-Origin': '*'
+      };
+    }
+
+    let params = new HttpParams();
+    params = params.append('min_date', dateMin);
+    params = params.append('max_date', dateMax);
+
+    return this.httpClient.get(url, {
       headers: headers,
       params: params,
     });

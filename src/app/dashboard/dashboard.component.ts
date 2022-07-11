@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UrlApi} from "../../services/url-api";
 import {HttpClientService} from "../../services/http-client.service";
-import {HttpErrorResponse, HttpParams} from "@angular/common/http";
+import {HttpErrorResponse} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
 import {Data} from "../../models/data";
 
@@ -19,7 +19,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const currentDate = new Date();
-    const minDate = new Date(new Date().setMonth(2));
+    const minDate = new Date(new Date().setMonth(new Date().getMonth() - 2));
+
     this.httpClient.getRequest<Data>(
       UrlApi.commandRecurrence,
       this.datePipe.transform(minDate, 'yyyy-MM-dd')!,
