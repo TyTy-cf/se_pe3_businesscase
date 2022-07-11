@@ -12,10 +12,10 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
 
-  // private _email: string = 'tortuga4281@yahoo.fr';
-  // private _password: string = 'coucou';
-  private _email: string = 'enzogrignaffini@yahoo.fr';
-  private _password: string = 'test';
+  private _email: string = 'tortuga4281@yahoo.fr';
+  private _password: string = 'coucou';
+  // private _email: string = 'enzogrignaffini@yahoo.fr';
+  // private _password: string = 'test';
   error: string = '';
 
   formLogin: FormGroup = new FormGroup({

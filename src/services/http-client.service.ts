@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UrlApi} from "./url-api";
+import {DatePipe, formatDate} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -9,21 +10,30 @@ import {UrlApi} from "./url-api";
 export class HttpClientService {
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private datePipe: DatePipe
   ) { }
 
-  getRequest<T>(url: string): Observable<T> {
+  getRequest(url: string): Observable<any> {
     const token: string|null = localStorage.getItem(UrlApi.keyTokenJWT);
     let headers = undefined;
     if (token) {
       headers = {
-        'Content-type': 'application/ld+json',
+        'Content-type': 'application/json',
         'Authorization': 'Bearer ' + token,
-        'Access-Control-Allow-Origin': '*'
+        // 'Access-Control-Allow-Origin': '*'
+
       };
     }
-    return this.httpClient.get<T>(url, {
+    const currentDate = new Date();
+    const minDate = new Date(new Date().setMonth(2));
+    let params = new HttpParams();
+    params = params.append('min_date', this.datePipe.transform(minDate, 'yyyy-MM-dd')!);
+    params = params.append('max_date', this.datePipe.transform(currentDate, 'yyyy-MM-dd')!);
+
+    return this.httpClient.get(url, {
       headers: headers,
+      params: params,
     });
   }
 

@@ -7,6 +7,7 @@ import {LoginComponent} from "./login/login.component";
 import {HttpClientModule} from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
