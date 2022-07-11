@@ -10,11 +10,10 @@ import {DatePipe, formatDate} from "@angular/common";
 export class HttpClientService {
 
   constructor(
-    private httpClient: HttpClient,
-    private datePipe: DatePipe
+    private httpClient: HttpClient
   ) { }
 
-  getRequest(url: string): Observable<any> {
+  getRequest<T>(url: string, dateMin: string, dateMax: string): Observable<T> {
     const token: string|null = localStorage.getItem(UrlApi.keyTokenJWT);
     let headers = undefined;
     if (token) {
@@ -22,16 +21,13 @@ export class HttpClientService {
         'Content-type': 'application/json',
         'Authorization': 'Bearer ' + token,
         // 'Access-Control-Allow-Origin': '*'
-
       };
     }
-    const currentDate = new Date();
-    const minDate = new Date(new Date().setMonth(2));
     let params = new HttpParams();
-    params = params.append('min_date', this.datePipe.transform(minDate, 'yyyy-MM-dd')!);
-    params = params.append('max_date', this.datePipe.transform(currentDate, 'yyyy-MM-dd')!);
+    params = params.append('min_date', dateMin);
+    params = params.append('max_date', dateMax);
 
-    return this.httpClient.get(url, {
+    return this.httpClient.get<T>(url, {
       headers: headers,
       params: params,
     });
