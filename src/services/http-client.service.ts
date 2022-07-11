@@ -12,8 +12,8 @@ export class HttpClientService {
     private httpClient: HttpClient
   ) { }
 
-  getRequest(): Observable<any> {
-    return this.httpClient.get('oui');
+  getRequest<T>(url: string): Observable<T> {
+    return this.httpClient.get<T>(url);
   }
 
   loginCheck(data: {email: string, password: string}): Observable<any> {
